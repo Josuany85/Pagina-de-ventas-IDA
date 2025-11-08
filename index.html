@@ -1,35 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Imperio Digital Academy</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Open Sans', sans-serif;
-      }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Montserrat', sans-serif;
-      }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Página - Vista rápida</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111;margin:24px}
+    .container{max-width:900px;margin:0 auto}
+    pre{background:#f6f8fa;border:1px solid #e1e4e8;padding:16px;overflow:auto}
+    .notice{background:#fff3cd;border:1px solid #ffeeba;padding:12px;margin:12px 0}
+    a{color:#0366d6}
+  </style>
 </head>
-<body class="bg-gray-900 text-white">
-    <div id="root"></div>
-    <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@18.2.0",
-    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-    "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/"
-  }
-}
-</script>
-    <script type="module" src="/index.tsx"></script>
+<body>
+  <div class="container">
+    <h1>Sitio publicado (vista estática)</h1>
+    <p>He puesto una página estática temporal para que el sitio deje de aparecer en blanco. El repositorio contiene una aplicación en React/TypeScript que necesita ser compilada antes de publicarse en GitHub Pages.</p>
+
+    <div class="notice">
+      <strong>Nota técnica:</strong> El archivo original cargaba <code>index.tsx</code> y archivos .tsx directamente en el navegador. Los navegadores no ejecutan TypeScript/TSX sin compilar, por eso la página quedaba en blanco. Para restaurar la app React hay que generar los archivos estáticos (carpeta <code>build</code> o <code>dist</code>) y publicar esos archivos.
+    </div>
+
+    <h2>Contenido del README.md</h2>
+    <div id="readme">Cargando README.md...</div>
+
+    <h3>Pasos recomendados para restaurar la app React</h3>
+    <ol>
+      <li>En un ordenador con Node.js: clonar el repo y ejecutar <code>npm install</code> y luego <code>npm run build</code>.</li>
+      <li>Subir la carpeta resultante (build o dist) a la rama principal dentro de la carpeta <code>/docs</code>, o configurar GitHub Actions para compilar y desplegar automáticamente a la rama <code>gh-pages</code>.</li>
+      <li>En Settings → Pages elegir la rama y carpeta correcta (main / root o main / docs) y esperar unos minutos.</li>
+    </ol>
+
+    <p>Si quieres, puedo añadir un workflow de GitHub Actions que compile la app automáticamente y publique en la rama <code>gh-pages</code>. Dime si quieres que lo haga y lo configuro desde el repositorio.</p>
+
+    <hr />
+    <small>Repositorio: <a href="https://github.com/Josuany85/Pagina-de-ventas-IDA">josuany85/Pagina-de-ventas-IDA</a></small>
+  </div>
+
+  <script>
+    async function loadReadme(){
+      const out = document.getElementById('readme');
+      try{
+        const r = await fetch('https://raw.githubusercontent.com/Josuany85/Pagina-de-ventas-IDA/main/README.md');
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        const md = await r.text();
+        // Mostrar como texto con formato mínimo
+        const pre = document.createElement('pre');
+        pre.textContent = md;
+        out.innerHTML = '';
+        out.appendChild(pre);
+      }catch(e){
+        out.textContent = 'No se pudo cargar README.md: ' + e;
+      }
+    }
+    loadReadme();
+  </script>
 </body>
 </html>
